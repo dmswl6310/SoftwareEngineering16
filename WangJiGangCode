@@ -1,0 +1,74 @@
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
+public class PSS {
+
+		private static void createAndShowGUI() {
+			JFrame frame = new JFrame("PointScoringSystem");
+			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			JLabel labe1 = new JLabel("");
+			labe1.setPreferredSize(new Dimension(500,500));
+			
+			frame.getContentPane().add(labe1);
+			frame.pack();
+			frame.setVisible(true);
+			JLabel lable = new JLabel(" 이  음식 어때요?");
+			ImageIcon icon = new ImageIcon("images/y2.png");
+			JButton enter = new JButton("", icon);
+			 enter.setPreferredSize(new Dimension(80,80));
+			 enter.setBorderPainted(false);
+			enter.setPressedIcon(new ImageIcon("images/y1.png"));
+			JPanel panel = new JPanel();
+			panel.setLayout(new FlowLayout(1,10,10));
+			panel.setLayout(new GridLayout(2,1,3,3));
+			panel.add(lable);
+			panel.add(enter);
+		    frame.add(panel);
+			frame.addMouseListener(MyListener());
+			
+	        
+		}
+		private static MouseListener MyListener() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+		class MyListener extends MouseAdapter{
+			 
+			int number;
+			public MyListener(){
+				super();
+				this.number = 0;
+			}
+			
+			public void mouseClicked(MouseEvent event){
+				number++;
+				if(number%2 == 1){
+					
+					enter.setIcon(new ImageIcon("images\\y1.PNG"));
+				}else{
+					enter.setIcon(new ImageIcon("images\\2.PNG"));
+				}
+			}
+		
+		}
+
+		   
+		
+		public static void main(String[] args) {
+			javax.swing.SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+				createAndShowGUI();
+			}
+		});
+		}
+}
