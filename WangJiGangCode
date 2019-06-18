@@ -1,74 +1,165 @@
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.GridLayout;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 
-public class PSS {
+public class SSR  implements ActionListener {
+	ImageIcon icon = new ImageIcon("images/y2.png");
+	JButton sj=new JButton("", icon);
+    JButton chy=new JButton("", icon);
+    JButton cq=new JButton("", icon);
+    JButton enter = new JButton("", icon);
+    JButton ew = new JButton("", icon);
+    JButton ee = new JButton("다시 편가");
+    JTextField tf=new JTextField(10);//文本框
+    JTextField tt=new JTextField(10);
+    
+	
+	
+    void go(){
 
-		private static void createAndShowGUI() {
-			JFrame frame = new JFrame("PointScoringSystem");
-			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-			JLabel labe1 = new JLabel("");
-			labe1.setPreferredSize(new Dimension(500,500));
-			
-			frame.getContentPane().add(labe1);
-			frame.pack();
-			frame.setVisible(true);
-			JLabel lable = new JLabel(" 이  음식 어때요?");
-			ImageIcon icon = new ImageIcon("images/y2.png");
-			JButton enter = new JButton("", icon);
-			 enter.setPreferredSize(new Dimension(80,80));
-			 enter.setBorderPainted(false);
-			enter.setPressedIcon(new ImageIcon("images/y1.png"));
-			JPanel panel = new JPanel();
-			panel.setLayout(new FlowLayout(1,10,10));
-			panel.setLayout(new GridLayout(2,1,3,3));
-			panel.add(lable);
-			panel.add(enter);
-		    frame.add(panel);
-			frame.addMouseListener(MyListener());
-			
-	        
-		}
-		private static MouseListener MyListener() {
-			// TODO Auto-generated method stub
-			return null;
-		}
-		class MyListener extends MouseAdapter{
-			 
-			int number;
-			public MyListener(){
-				super();
-				this.number = 0;
-			}
-			
-			public void mouseClicked(MouseEvent event){
-				number++;
-				if(number%2 == 1){
-					
-					enter.setIcon(new ImageIcon("images\\y1.PNG"));
-				}else{
-					enter.setIcon(new ImageIcon("images\\2.PNG"));
-				}
-			}
-		
-		}
 
-		   
-		
-		public static void main(String[] args) {
-			javax.swing.SwingUtilities.invokeLater(new Runnable() {
-			public void run() {
-				createAndShowGUI();
+    JFrame jf=new JFrame("PointScoringSystem");
+
+    JPanel p=new JPanel();
+    jf.add(p,"South");
+
+    sj.setForeground(Color.white);
+    enter.setForeground(Color.white);
+    chy.setForeground(Color.white);
+    chy.setForeground(Color.white);
+    cq.setForeground(Color.white);
+    ew.setForeground(Color.white);
+    ee.setForeground(Color.blue);
+    tf.setForeground(Color.blue);
+    tf.setText("이  음식 어때요?");
+    p.add(sj);
+    p.add(chy);
+    p.add(cq);
+    p.add(enter);
+    p.add(ew);
+    p.add(ee);
+    p.add(tt);
+    jf.add(tf);//这个必须要，否则显示不了文本框内容
+
+    sj.addActionListener(this);
+    enter.addActionListener(this);
+    chy.addActionListener(this);
+    cq.addActionListener(this);
+    ew.addActionListener(this);
+    ee.addActionListener(this);
+    sj.setFocusPainted(false);
+    enter.setFocusPainted(false);
+    chy.setFocusPainted(false);
+    cq.setFocusPainted(false);
+    ew.setFocusPainted(false);
+    sj.setBorderPainted(false);//不打印边框
+    enter.setBorderPainted(false);
+    chy.setBorderPainted(false);
+    cq.setBorderPainted(false);
+    ew.setBorderPainted(false);
+    sj.setContentAreaFilled(false);
+    enter.setContentAreaFilled(false);
+    chy.setContentAreaFilled(false);
+    cq.setContentAreaFilled(false);
+    ew.setContentAreaFilled(false);
+    ee.setContentAreaFilled(false);//除去默认的背景填充
+    
+    jf.setSize(800, 300);
+    jf.setVisible(true);
+    }
+    public void actionPerformed(ActionEvent e){
+    	int number1=0;
+    	int number2=0;
+    	int number3=0;
+    	int number4=0;
+    	int number5=0;
+    	int number6=0;
+        if (e.getSource( )==sj)  {
+        	number1=1;
+        	
+			if(number1%2 == 1){
+				
+				sj.setIcon(new ImageIcon("images\\y1.PNG"));
 			}
-		});
-		}
+			else{
+				sj.setIcon(new ImageIcon("images\\y2.PNG"));
+			}
+        }
+        if (e.getSource( )==chy)  {
+        	number2=1;
+        	
+			if(number2%2 == 1){
+				
+				chy.setIcon(new ImageIcon("images\\y1.PNG"));
+			}
+			else{
+				chy.setIcon(new ImageIcon("images\\y2.PNG"));
+			}
+        }
+        if (e.getSource( )==cq)  {
+        	number3=1;
+        	
+			if(number3%2 == 1){
+				
+				cq.setIcon(new ImageIcon("images\\y1.PNG"));
+			}
+			else{
+				cq.setIcon(new ImageIcon("images\\y2.PNG"));
+			}
+        	
+        }
+        if (e.getSource( )==enter)   {
+        	number4=1;
+        	
+			if(number4%2 == 1){
+				
+				enter.setIcon(new ImageIcon("images\\y1.PNG"));
+			}
+			else{
+				enter.setIcon(new ImageIcon("images\\y2.PNG"));
+			}
+        }
+        if (e.getSource( )==ew) {
+        	number5=1;
+        	
+			if(number5%2 == 1){
+				
+				ew.setIcon(new ImageIcon("images\\y1.PNG"));
+			}
+			else{
+				ew.setIcon(new ImageIcon("images\\y2.PNG"));
+			}
+        	
+        }
+        if (e.getSource( )==ee) {
+        	number1=0;
+        	number2=0;
+        	number3=0;
+        	number4=0;
+        	number5=0;
+        	sj.setIcon(new ImageIcon("images\\y2.PNG"));
+        	chy.setIcon(new ImageIcon("images\\y2.PNG"));
+        	cq.setIcon(new ImageIcon("images\\y2.PNG"));
+        	enter.setIcon(new ImageIcon("images\\y2.PNG"));
+        	ew.setIcon(new ImageIcon("images\\y2.PNG"));
+        }
+        number6=number1+number2+number3+number4+number5;
+        
+        
+     }
+
+
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		SSR x=new SSR();
+	    x.go();
+	}
+
 }
