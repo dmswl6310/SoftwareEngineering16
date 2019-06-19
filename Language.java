@@ -1,19 +1,17 @@
 import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
-import javax.swing.JFrame;
+import javax.swing.JButton;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
-import javax.swing.UIManager;
 
-public class Language extends JFrame implements ActionListener
+
+public class Language extends JPanel implements ActionListener
 {
 	/**
 	 * 
@@ -22,8 +20,7 @@ public class Language extends JFrame implements ActionListener
 
 	
 	private static final long serialVersionUID = 1L;
-	public static final int WIDTH = 480;
-	public static final int HEIGHT = 640;
+	
 	
 	public static String language;
 	public static Locale currentLocale;
@@ -31,25 +28,22 @@ public class Language extends JFrame implements ActionListener
 	public ResourceBundle messages;
 	
 	public JPanel langPanel;
-	public JFrame langFrame;
+	public JButton Back= new JButton("Go Back");
 	private Locale defaultLocale = new Locale("en","US");
 	
-	/*public static void main(String[] args)
-	{
-		Language dem = new Language();
-		dem.setVisible(true);
-	}*/
+	
 	public Language()
 	{
+		langPanel = new JPanel();
+		langPanel.setLayout(null);
+		this.setLayout(new BorderLayout());
+		Back.setBounds(200, 250, 100, 20);
+		langPanel.add(Back,"Center");
+		Back.addActionListener(this);
 		
-		super("Language");
-		//setSize(WIDTH, HEIGHT);
-	//	setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setLayout(new BorderLayout());
+		
 		currentLocale = defaultLocale;
 		messages = ResourceBundle.getBundle("MessagesBundle",currentLocale);
-		langPanel = new JPanel();
-		langPanel.setVisible(true);
 		
 		//langPanel.setLayout(new BorderLayout());     
 		//langPanel.setBackground(Color.BLACK);  //color of language window
@@ -75,9 +69,12 @@ public class Language extends JFrame implements ActionListener
 		
 		JMenuBar bar = new JMenuBar();
 		bar.add(langMenu);
-		//setJMenuBar(bar);  // no need to set bar
 		
-		langFrame.add(bar, BorderLayout.CENTER);
+		
+		
+		langPanel.add(bar, "South");
+		bar.setBounds(150, 150, 200, 20);
+		this.add(langPanel);
 	
 		
 	}
@@ -87,7 +84,6 @@ public class Language extends JFrame implements ActionListener
 		currentLocale = new Locale(lang, c);
 		messages = ResourceBundle.getBundle("Messagesbundle",currentLocale);
 		
-		//System.out.println(currentLocale);
 	}
 	
 	@Override
@@ -102,7 +98,6 @@ public class Language extends JFrame implements ActionListener
 		else if(buttonString.equals("Francias")) {
 			SetLanguage("fr", "FR");
 		
-			
 		}
 			
 		else if(buttonString.equals("English")) {
@@ -115,10 +110,13 @@ public class Language extends JFrame implements ActionListener
 			SetLanguage("zh", "CN");
 			//System.out.println(messages.getString("greetings"));
 		}
-		else {
+		else if(buttonString.equals("Go Back")) {
+			Application.MyCard.card.show(Application.mainPanel,"LogIn");
+		}
+		else
 			Locale.setDefault(defaultLocale);;
 			
-		}
+		
 		
 	}
 
