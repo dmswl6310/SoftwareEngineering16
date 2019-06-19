@@ -25,13 +25,13 @@ public class Sign_Up extends JPanel{
 	
 	
 	
-	JLabel check = new JLabel("패스워드 일치 확인");
-	JButton b_check = new JButton("확인");
+	JLabel check = new JLabel(Application.messages.getString("check_pwd_label")); //"패스워드 일치 확인"
+	JButton b_check = new JButton(Application.messages.getString("check"));
 	
-	JLabel check_ID = new JLabel("ID 중복 확인");
-	JButton b_check_ID = new JButton("확인");
+	JLabel check_ID = new JLabel(Application.messages.getString("id_ok"));//"ID 중복 확인");
+	JButton b_check_ID = new JButton(Application.messages.getString("check"));
 	
-	JButton Final = new JButton("가입하기");
+	JButton Final = new JButton(Application.messages.getString("sign_up"));
 	JLabel Final_tx = new JLabel("");
 	
 	
@@ -44,7 +44,7 @@ public class Sign_Up extends JPanel{
 	//JTextField tf3 = new JTextField(12); // name
 	JTextField tf4 = new JTextField(25); // E-Mail
 	
-	public JButton BackButton = new JButton("뒤로가기");
+	public JButton BackButton = new JButton(Application.messages.getString("go_back"));
 	
 	
 	public Sign_Up() {
@@ -54,7 +54,7 @@ public class Sign_Up extends JPanel{
 		
 		this.setLayout(new BorderLayout());
 		
-		JLabel text = new JLabel("회원 가입");
+		JLabel text = new JLabel(Application.messages.getString("sign_up"));
 		
 		JLabel[] label = new JLabel[7];
 		label[0] = new JLabel("ID");
@@ -62,8 +62,8 @@ public class Sign_Up extends JPanel{
 		label[2] = new JLabel("PW_Check");
 		//label[3] = new JLabel("*name");
 		label[4] = new JLabel("E-Mail");
-		label[5] = new JLabel("이름");
-		label[6] = new JLabel("생년월일(8자리)");
+		label[5] = new JLabel(Application.messages.getString("name"));
+		label[6] = new JLabel(Application.messages.getString("birthDate"));
 		
 		
 		
@@ -158,7 +158,7 @@ public class Sign_Up extends JPanel{
 
 						Member m = new Member();
 						m.create(temp_name, temp_birth, temp_ID, temp_PW, temp_Email);
-						JOptionPane.showMessageDialog(null, "회원 가입이 완료되었습니다.");
+						JOptionPane.showMessageDialog(null, Application.messages.getString("sign_up_success"));//"회원 가입이 완료되었습니다.");
 						
 						tfname.setText("");
 						tfbirth.setText("");
@@ -171,7 +171,7 @@ public class Sign_Up extends JPanel{
 						Application.MyCard.card.show(Application.mainPanel,"LogIn");
 						
 					}else {
-						Final_tx.setText("정보를 모두 기입하지 않았습니다.");
+						Final_tx.setText(Application.messages.getString("blank_not_fill"));//"정보를 모두 기입하지 않았습니다.");
 					}
 					
 				}else if(e.getSource() == BackButton) {
@@ -185,6 +185,7 @@ public class Sign_Up extends JPanel{
 		b_check_ID.addActionListener(eventHandler);
 		Final.addActionListener(eventHandler);
 		BackButton.addActionListener(eventHandler);
+		
 	}// Sign_Up
 	
 	
@@ -212,11 +213,11 @@ public class Sign_Up extends JPanel{
 		if(p1.length() != 0 && p2.length() != 0) { // 아무것도 안 씀...
 
 			if(p1.equals(p2) && !p1.equals("") && !p2.equals("")) {
-				check.setText("비밀번호 일치");
+				check.setText(Application.messages.getString("check_pwd"));//"비밀번호 일치");
 				temp_PW = p1;
 				satisfy_pw = true;
 			}else {
-				check.setText("비밀번호 불일치");
+				check.setText(Application.messages.getString("pwd_not_match"));
 				satisfy_pw = false;
 			}
 		}
@@ -225,14 +226,14 @@ public class Sign_Up extends JPanel{
 	public void Check_ID(String ID) {
 		for(int i = 0; i <= Application.top; i++) {
 			if(ID.equals(Application.DB[i].getID())) { // 이미 존재하는 ID라면
-				check_ID.setText("중복되는 ID가 있습니다.");
+				check_ID.setText(Application.messages.getString("id_in_use"));   //"중복되는 ID가 있습니다.");
 				satisfy_ID = false;
 				
 				return;
 			}
 		}
 		
-		check_ID.setText("중복되는 ID가 없습니다.");
+		check_ID.setText(Application.messages.getString("id_notin_use"));//"중복되는 ID가 없습니다.");
 		satisfy_ID = true;
 	} // Check_ID()
 	
@@ -244,15 +245,8 @@ public class Sign_Up extends JPanel{
 			
 			return false;
 		}
-		
-		
-		
+			
 	}
-	
-	
-	
-	
-	
 	
 	
 	
