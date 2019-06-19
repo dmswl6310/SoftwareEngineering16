@@ -18,6 +18,10 @@ import javax.swing.SwingConstants;
 
 public class test3 extends JFrame implements ActionListener{
 
+	double starAverage;
+	int starNum;
+	Boolean done;
+	
 	String name;
 	JPanel title;
 	JPanel info;
@@ -36,7 +40,7 @@ public class test3 extends JFrame implements ActionListener{
 
 		super("상세 검색 화면");
 		location = "C:\\Users\\황은지\\Desktop\\Softengineering_Test1\\SE_Project\\src\\";
-
+		done=false;
 		this.name = r.name;
 		content = "";
 		File resinfo = new File(location + this.name + ".txt");
@@ -49,7 +53,6 @@ public class test3 extends JFrame implements ActionListener{
 
 		ImageIcon icon = new ImageIcon(location + "y2.png");
 		s=new JButton[5];
-		
 		
 		show2 = new JPanel(new GridLayout(1,5));
 		show1 = new JPanel(new GridLayout(1,2));
@@ -69,8 +72,11 @@ public class test3 extends JFrame implements ActionListener{
 		title.add(t);
 
 		try {
-			Scanner rscan = new Scanner(resinfo);
-			rscan.nextLine();
+			Scanner rscan = new Scanner(resinfo);			
+			String[] temp = (rscan.nextLine()).split(" ");
+			starAverage=Double.parseDouble(temp[0]);
+			starNum=Integer.parseInt(temp[1]);
+			
 			while (rscan.hasNextLine()) {
 				content += (rscan.nextLine());
 			}
@@ -94,41 +100,28 @@ public class test3 extends JFrame implements ActionListener{
 		setVisible(true);
 	}
 	public void actionPerformed(ActionEvent e){
-		
-    	int[] num=new int[6];
+		if(done==false) {
+
+		double star=0.0;
+    	int[] num=new int[5];
+    	
     	for(int i=0;i<5;i++) {
         if (e.getSource( )==s[i])  {
-        	num[i]=1;
+        	star=(i+1);
+        	for(int j=0;j<=i;j++) {
+        		num[j]=1;
+				s[j].setIcon(new ImageIcon(location+"y1.PNG"));
+        	}
         	
-			if(num[i]%2 == 1){
-				
-				s[i].setIcon(new ImageIcon(location+"y1.PNG"));
-			}
-			else{
-				s[i].setIcon(new ImageIcon(location+"y2.PNG"));
-			}
+        }else {
+        s[i].setIcon(new ImageIcon(location+"y2.PNG"));
         }
     	}
-        num[5]=num[0]+num[1]+num[2]+num[3]+num[4];
-        /*if (e.getSource( )==cq)  {
-        
-        if (e.getSource( )==ee) {
-        	number1=0;
-        	number2=0;
-        	number3=0;
-        	number4=0;
-        	number5=0;
-        	sj.setIcon(new ImageIcon(location+"y2.PNG"));
-        	chy.setIcon(new ImageIcon(location+"y2.PNG"));
-        	cq.setIcon(new ImageIcon(location+"y2.PNG"));
-        	enter.setIcon(new ImageIcon(location+"y2.PNG"));
-        	ew.setIcon(new ImageIcon(location+"y2.PNG"));
-        }
-        number6=number1+number2+number3+number4+number5;
-        
-        
-     }
+        starAverage=((starAverage*starNum)+star)/(++starNum);
+        System.out.println("평균"+starAverage);
+        System.out.println("횟수"+starNum);
+        done=true;
+		}
+}
+}
 
-*/
-}
-}
