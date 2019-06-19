@@ -17,6 +17,7 @@ import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JTextField;
 
 public class test2 extends JFrame {
@@ -24,13 +25,18 @@ public class test2 extends JFrame {
 	JPanel title;
 	JPanel list;
 	List<Restaurant> res;
-	List resShort;
-	
+	//List resShort;
+	String ttitle[]= {"이름","분류","위치","여는시간","닫는시간","최저가격"};
+	//String data;
+	// 그냥 위에 꺼 써도 될
+	JTable table;
+	String data[][];
+	//{{"ㅈㅈ","ㄷ","ㄷ","ㄷ","ㄷ","ㄷ"},{"ㅈㅈ","ㄷ","ㄷ","ㄷ","ㄷ","ㄷ"}};
 	public void filescan (Restaurant choice) {
 		
 		Restaurant x2 = new Restaurant();
 		res = new ArrayList<Restaurant>();
-		resShort= new ArrayList();
+		//resShort= new ArrayList();
 		
 	try {
 		File file = new File("C:\\Users\\황은지\\Desktop\\Softengineering_Test1\\src\\목록.txt");
@@ -66,7 +72,7 @@ public class test2 extends JFrame {
 			res.remove(i--);
 			continue;
 		}
-		resShort.add((Component)(res.get(i).name));
+		//resShort.add((Component)(res.;get(i).name));
 	}
 	
 	}
@@ -79,9 +85,19 @@ public class test2 extends JFrame {
 	//String location[] = { "---", "정문(쪽문)", "북문", "동문", "서문" };
 
 	public test2(Restaurant x) {
-		
+	
 		this.filescan(x);
-
+		data=new String[res.size()][10];
+		for(int i=0;i<res.size();i++) {
+		data[i][0]=res.get(i).name;
+		data[i][1]=String.valueOf(res.get(i).type);
+		data[i][2]=String.valueOf(res.get(i).location);
+		data[i][3]=String.valueOf(res.get(i).start_time);
+		data[i][4]=String.valueOf(res.get(i).finish_time);
+		data[i][5]=String.valueOf(res.get(i).price);
+		// 여기 테스트 해볼껄 
+		}
+		
 		// 전체 레이아웃-보더 (title: 화면이름, center: 식당목록);
 		//super("식당 목록 화면");
 		setLayout(new BorderLayout());
@@ -90,11 +106,18 @@ public class test2 extends JFrame {
 
 		// title패널에는 화면제목 출력
 		Label t = new Label("식당 검색 결과");
-		t.setAlignment(Label.CENTER);
-
+		//t.setAlignment(Label.CENTER);
+        
 		title.add(t);	
-		list.
-		list.add(new JScrollPane(res.get(1).name));
+		table=new JTable(data,ttitle);
+
+		JScrollPane sp=new JScrollPane(table);
+		
+		list.add(sp,BorderLayout.CENTER);
+		//list.
+		//list.add(new JScrollPane(res.get(1).name));
+		
+		
 		//filter.add(name);
 
 		//filter.add(t2);
