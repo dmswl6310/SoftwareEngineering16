@@ -4,21 +4,26 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 
-public class LogIn extends JFrame{ // ·Î±×ÀÎ Ã¢
+public class LogIn extends JPanel{ // ë¡œê·¸ì¸ ì°½
 	String Input_ID;
 	char[] Input_PW;
-	
+	public JButton lButton = null;
+	public JButton[] b = null;
 	
 	public LogIn(){
-		
+		JPanel loginField = new JPanel();
 		JPanel SigninField = new JPanel();
 		JPanel ButtonField = new JPanel();
 		
 		
-		Application.window.setLayout(new BorderLayout());
+		this.setLayout(new BorderLayout());
 		
-		// ¾ÆÀÌµğ, ÆĞ½º¿öµå ÆĞ³Î
+		// ì•„ì´ë””, íŒ¨ìŠ¤ì›Œë“œ íŒ¨ë„
 		SigninField.setLayout(new FlowLayout());
 		JLabel j1 = new JLabel("ID");
 		JTextField tf1 = new JTextField(12);
@@ -32,25 +37,25 @@ public class LogIn extends JFrame{ // ·Î±×ÀÎ Ã¢
 		SigninField.add(tf1);
 		SigninField.add(j2);
 		SigninField.add(tf2);
-		Application.window.add(SigninField, "Center");
+		loginField.add(SigninField, "Center");
+		this.add(loginField);
+		// ìƒë‹¨ ë²„íŠ¼ íŒ¨ë„
 		
-		// »ó´Ü ¹öÆ° ÆĞ³Î
-		
-		JButton[] b = new JButton[3];
-		b[0] = new JButton("¾ğ¾î");
-		b[1] = new JButton("¹Ì´Ï°ÔÀÓ");
-		b[2] = new JButton("È¸¿ø°¡ÀÔ");
+		b = new JButton[3];
+		b[0] = new JButton("ì–¸ì–´");
+		b[1] = new JButton("ë¯¸ë‹ˆê²Œì„");
+		b[2] = new JButton("íšŒì›ê°€ì…");
 		
 		for(int i = 0; i < 3; i++) {
 			b[i].setPreferredSize(new Dimension(120,30));
 			ButtonField.add(b[i]);
 		}
-		Application.window.add(ButtonField,"North");
+		this.add(ButtonField,"North");
 		
 		//
 		
-		JButton l = new JButton("·Î±×ÀÎ");
-		Application.window.add(l, "South");
+		lButton = new JButton("ë¡œê·¸ì¸");
+		this.add(lButton,  "South");
 		
 		//////////////////////////////////////////////////////////////////
 		ActionListener eventHandler = new ActionListener() {
@@ -58,26 +63,43 @@ public class LogIn extends JFrame{ // ·Î±×ÀÎ Ã¢
 			public void actionPerformed(ActionEvent e) {
 				String pw = "";
 				// TODO Auto-generated method stub
-				if(e.getSource() == l){
+				if(e.getSource() == lButton){
 					Input_ID = tf1.getText();
 					Input_PW = tf2.getPassword();
 					
 					for(char cha : Input_PW) {
 						Character.toString(cha);
 						pw += (pw.equals("")) ? ""+cha+"" : ""+cha+"";
-					}// ÆĞ½º¿öµå ÇØµ¶
+					}// íŒ¨ìŠ¤ì›Œë“œ í•´ë…
 					
 					
 					System.out.printf("ID : %s\n", Input_ID);
 					System.out.printf("PW : %s\n", pw);
 					System.out.printf("PW2 : %s\n", Input_PW);
+					
+					boolean logincheck = false;					
+					for(int i = 0; i <= Application.top; i++) {
+						if(Application.DB[i].getID().equals(Input_ID) &&
+								Application.DB[i].getPW().equals(pw)) {
+							JOptionPane.showMessageDialog(null, "ë¡œê·¸ì¸ ì„±ê³µ");
+							logincheck = true;
+						}
+					}
+					
+					if(logincheck == false) {
+						JOptionPane.showMessageDialog(null, "ì—†ëŠ” ê³„ì •ì´ê±°ë‚˜ ì˜ëª» ì…ë ¥í•¨");
+						
+					}
+					
+				}else if(e.getSource() == b[2]) {
+					Application.MyCard.card.show(Application.mainPanel,"Sign_Up");
 				}
 			}
 		};
 		//////////////////////////////////////////////////////////////////
 		
-		l.addActionListener(eventHandler);
-		
+		lButton.addActionListener(eventHandler);
+		b[2].addActionListener(eventHandler);
 		
 		
 		
