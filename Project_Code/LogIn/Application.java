@@ -1,24 +1,140 @@
 package LogIn;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+
+import java.awt.*;
+import java.awt.CardLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.*;
 
 public class Application {
 	// temporarily DB create
-	public static Member[] DB = new Member[10];
+	public static Member[] DB = new Member[20];
 	public static int top = -1;
-	public static int UN = 0; // User Number
-	public static JFrame window = new JFrame("window"); // Ã¢...?
+	public static JFrame window = new JFrame("window"); // ì°½...?
+	public static JPanel mainPanel = new JPanel();
+	
+	public static void DB_init() {
+		///////// í…ŒìŠ¤íŠ¸ìš© DB
+		
+		for(int i = 0; i< 20; i++)
+			DB[i] = new Member();
+		
+		
+		//////////
+		BufferedReader bReader = null;
+		
+		try {
+			File file = new File("member.txt");
+			bReader = new BufferedReader(new FileReader(file));
+			
+			
+			String line = null;
+			int num = 0;
+			
+			Application.top++;
+			while((line = bReader.readLine()) != null) {
+				
+				String[] str = null;
+				str = line.split(" ");
+				
+				
+				DB[top].IsMember = true;
+				
+				for(int i = 0; i < str.length; i++) {
+					System.out.println(str[i]);
+					switch(i) {
+						case 0:
+							DB[top].setname(str[i]);
+							break;
+						case 1:
+							DB[top].setbirth(str[i]);
+							break;
+						case 2:
+							DB[top].setID(str[i]);
+							break;
+						case 3:
+							DB[top].setPW(str[i]);
+							break;
+						case 4:
+							DB[top].setUserNumber(Integer.parseInt(str[i]));
+							DB[top].setEmail("Not Exist");
+							break;
+						case 5:
+							DB[top].setEmail(str[i]);
+							Application.top++;
+							break;
+					}
+				}
+			}
+			
+			
+			
+			
+		}catch(IOException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(bReader != null)
+					bReader.close();
+			}catch(IOException e) {
+				e.printStackTrace();
+			}
+		}
+		/////////////////////////////////////////////////////////// íŒŒì¼ ì—´ê¸°
+		Application.top--;
+		System.out.printf("top : %d", top);
+			
+		
+	}
+
+	
+	static class MyCard extends JFrame{
+		static CardLayout card = new CardLayout(); // Card Layout Create
+		LogIn LI = new LogIn();
+		Sign_Up  SU = new Sign_Up();
+		
+		
+		MyCard() {
+			mainPanel.setLayout(card);
+			
+			
+			
+			mainPanel.add("LogIn", LI);
+			mainPanel.add("Sign_Up", SU);
+						
+		}
+	}
 	
 	
 	
 	
 	public static void main(String[] args) {
-		LogIn L = new LogIn();
-		//Sign_Up S = new Sign_Up();
-		// ÇÁ·Î±×·¥ÀÇ Ã³À½Àº Ç×»ó ·Î±×ÀÎ È­¸éÀ¸·Î ½ÃÀÛÇÔ
-		Application.window.setSize(480, 640);
+		
+		int window_W = 480;
+		int window_H = 640;
+		
+		
+		DB_init();
+		// DB ìƒì„±		
+		
+		Application.window.setSize(window_W, window_H);
 		Application.window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		Application.window.setResizable(false);
+		
+		Application.window.add(mainPanel);
+		
+		MyCard MC = new MyCard();
+		MC.card.show(mainPanel, "LogIn");
+		
+		
+		
+		
+		
+		
 		
 		
 		
