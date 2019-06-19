@@ -3,7 +3,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Locale;
 import java.util.ResourceBundle;
-
 import javax.swing.JButton;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -11,7 +10,9 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 
 
-public class Language extends JPanel implements ActionListener
+
+
+public class Language extends JPanel implements ActionListener, LocaleChangeListener
 {
 	/**
 	 * 
@@ -23,13 +24,11 @@ public class Language extends JPanel implements ActionListener
 	
 	
 	public static String language;
-	public static Locale currentLocale;
 	
-	public ResourceBundle messages;
-	
+	public Locale defLocale = new Locale("ko","KR");
 	public JPanel langPanel;
 	public JButton Back= new JButton("Go Back");
-	private Locale defaultLocale = new Locale("en","US");
+	
 	
 	
 	public Language()
@@ -42,14 +41,14 @@ public class Language extends JPanel implements ActionListener
 		Back.addActionListener(this);
 		
 		
-		currentLocale = defaultLocale;
-		messages = ResourceBundle.getBundle("MessagesBundle",currentLocale);
+		//currentLocale = defaultLocale;
+		//messages = ResourceBundle.getBundle("MessagesBundle",currentLocale);
 		
 		//langPanel.setLayout(new BorderLayout());     
 		//langPanel.setBackground(Color.BLACK);  //color of language window
 		//add(langPanel);
 		
-		JMenu langMenu = new JMenu("Choose Language");
+		JMenu langMenu = new JMenu(Application.messages.getString("choose_lang"));
 		
 		JMenuItem korean = new JMenuItem("한국어");
 		korean.addActionListener(this);
@@ -70,8 +69,6 @@ public class Language extends JPanel implements ActionListener
 		JMenuBar bar = new JMenuBar();
 		bar.add(langMenu);
 		
-		
-		
 		langPanel.add(bar, "South");
 		bar.setBounds(150, 150, 200, 20);
 		this.add(langPanel);
@@ -81,8 +78,10 @@ public class Language extends JPanel implements ActionListener
 	
 	public void SetLanguage(String lang, String c)
 	{
-		currentLocale = new Locale(lang, c);
-		messages = ResourceBundle.getBundle("Messagesbundle",currentLocale);
+		Application.currentLocale = new Locale(lang, c);
+		Application.messages = ResourceBundle.getBundle("Messagesbundle",Application.currentLocale);
+		
+		
 		
 	}
 	
@@ -93,6 +92,8 @@ public class Language extends JPanel implements ActionListener
 		
 		if(buttonString.equals("한국어")) {
 			SetLanguage("ko","KR");
+		    
+			//System.out.println(Application.messages.getString("greetings"));
 			
 		}
 		else if(buttonString.equals("Francias")) {
@@ -101,10 +102,8 @@ public class Language extends JPanel implements ActionListener
 		}
 			
 		else if(buttonString.equals("English")) {
-			
 				SetLanguage("en", "US");
-				
-				
+				//System.out.println(Application.messages.getString("greetings"));
 		}
 		else if(buttonString.equals("Chinese")) {
 			SetLanguage("zh", "CN");
@@ -114,8 +113,13 @@ public class Language extends JPanel implements ActionListener
 			Application.MyCard.card.show(Application.mainPanel,"LogIn");
 		}
 		else
-			Locale.setDefault(defaultLocale);;
-			
+			Locale.setDefault(defLocale);
+		
+		
+	}
+
+	@Override
+	public void onLocalChange() {
 		
 		
 	}
