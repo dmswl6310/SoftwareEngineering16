@@ -15,37 +15,45 @@ import javax.swing.UIManager;
 
 public class Language extends JFrame implements ActionListener
 {
+	/**
+	 * 
+	 * 
+	 * */
+
 	
-	public static final int WIDTH = 360;
+	private static final long serialVersionUID = 1L;
+	public static final int WIDTH = 480;
 	public static final int HEIGHT = 640;
 	
 	public static String language;
-	
 	public static Locale currentLocale;
 	
-	static ResourceBundle messages; 
+	public ResourceBundle messages;
 	
-	private JPanel langPanel;
+	public JPanel langPanel;
+	public JFrame langFrame;
 	private Locale defaultLocale = new Locale("en","US");
 	
-	public static void main(String[] args)
+	/*public static void main(String[] args)
 	{
 		Language dem = new Language();
 		dem.setVisible(true);
-		
-	}
-	
+	}*/
 	public Language()
 	{
-		super("Language");
-		setSize(WIDTH, HEIGHT);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		//setLayout(new BorderLayout());
 		
+		super("Language");
+		//setSize(WIDTH, HEIGHT);
+	//	setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setLayout(new BorderLayout());
+		currentLocale = defaultLocale;
+		messages = ResourceBundle.getBundle("MessagesBundle",currentLocale);
 		langPanel = new JPanel();
+		langPanel.setVisible(true);
+		
 		//langPanel.setLayout(new BorderLayout());     
 		//langPanel.setBackground(Color.BLACK);  //color of language window
-		add(langPanel);
+		//add(langPanel);
 		
 		JMenu langMenu = new JMenu("Choose Language");
 		
@@ -69,13 +77,17 @@ public class Language extends JFrame implements ActionListener
 		bar.add(langMenu);
 		//setJMenuBar(bar);  // no need to set bar
 		
-		langPanel.add(bar, BorderLayout.CENTER);
+		langFrame.add(bar, BorderLayout.CENTER);
+	
 		
 	}
 	
-	public void SetLanguage(String lang)
+	public void SetLanguage(String lang, String c)
 	{
-		currentLocale = new Locale(lang);//, c);
+		currentLocale = new Locale(lang, c);
+		messages = ResourceBundle.getBundle("Messagesbundle",currentLocale);
+		
+		//System.out.println(currentLocale);
 	}
 	
 	@Override
@@ -84,21 +96,24 @@ public class Language extends JFrame implements ActionListener
 		String buttonString = e.getActionCommand();
 		
 		if(buttonString.equals("한국어")) {
-			SetLanguage("ko");//,"KR");
+			SetLanguage("ko","KR");
 			
 		}
 		else if(buttonString.equals("Francias")) {
-			SetLanguage("fr");//, "FR");
+			SetLanguage("fr", "FR");
+		
 			
 		}
 			
 		else if(buttonString.equals("English")) {
-				SetLanguage("en");//, "US");
+			
+				SetLanguage("en", "US");
+				
 				
 		}
 		else if(buttonString.equals("Chinese")) {
-			SetLanguage("zh");//, "CN");
-			
+			SetLanguage("zh", "CN");
+			//System.out.println(messages.getString("greetings"));
 		}
 		else {
 			Locale.setDefault(defaultLocale);;
