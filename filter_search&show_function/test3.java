@@ -1,6 +1,5 @@
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.Label;
 import java.awt.event.ActionEvent;
@@ -36,13 +35,12 @@ public class test3 extends JFrame implements ActionListener{
 	public test3(Restaurant r) {
 
 		super("상세 검색 화면");
-		location = "C:\\Users\\황은지\\Desktop\\Softengineering_Test1\\img\\";
+		location = "C:\\Users\\황은지\\Desktop\\Softengineering_Test1\\SE_Project\\src\\";
 
 		this.name = r.name;
 		content = "";
-		File resinfo = new File(
-				"C:\\Users\\황은지\\Desktop\\Softengineering_Test1\\SE_Project\\src\\" + this.name + ".txt");
-		img = new ImageIcon("C:\\Users\\황은지\\Desktop\\Softengineering_Test1\\SE_Project\\src\\" + this.name + ".jpg");
+		File resinfo = new File(location + this.name + ".txt");
+		img = new ImageIcon(location + this.name + ".jpg");
 
 		// 전체 구성 : title과 info 패널 두개
 		setLayout(new BorderLayout());
@@ -84,7 +82,7 @@ public class test3 extends JFrame implements ActionListener{
 		// show1패널에는 show 패널(텍스트필드)와 show2패널(별점)이 들어감
 		show1.add(show);
 		show1.add(show2);
-		la = new JLabel("그림없음", img, SwingConstants.CENTER);
+		la = new JLabel(img, SwingConstants.CENTER);
 		// info패널에는 show1(텍스트와 별점)과 그림 패널이 들어감
 		info.add(BorderLayout.CENTER, show1);
 		info.add(BorderLayout.SOUTH, la);
