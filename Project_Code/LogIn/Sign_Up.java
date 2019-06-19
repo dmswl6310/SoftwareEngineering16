@@ -1,135 +1,111 @@
 package LogIn;
 
-
-
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 
-import javax.swing.*;
-
-
-public class Sign_Up extends JFrame{
-	String tempID;
-	String tempPW;
-	String tempPW_Check;
-	String tempmail;
+public class LogIn extends JPanel{ // 로그인 창
+	String Input_ID;
+	char[] Input_PW;
+	public JButton lButton = null;
+	public JButton[] b = null;
 	
-	boolean satisfy = false;
+	public LogIn(){
+		JPanel loginField = new JPanel();
+		JPanel SigninField = new JPanel();
+		JPanel ButtonField = new JPanel();
+		
+		
+		this.setLayout(new BorderLayout());
+		
+		// 아이디, 패스워드 패널
+		SigninField.setLayout(new FlowLayout());
+		JLabel j1 = new JLabel("ID");
+		JTextField tf1 = new JTextField(12);
+		JLabel j2 = new JLabel("PW");
+		JPasswordField tf2 = new JPasswordField(12);
+		tf2.setEchoChar('*');
+		tf1.setPreferredSize(new Dimension(600, 20));
+		tf2.setPreferredSize(new Dimension(600, 20));
 	
-	Sign_Up() {
+		SigninField.add(j1);
+		SigninField.add(tf1);
+		SigninField.add(j2);
+		SigninField.add(tf2);
+		loginField.add(SigninField, "Center");
+		this.add(loginField);
+		// 상단 버튼 패널
 		
-		JPanel sign_up = new JPanel();
-		sign_up.setLayout(null);
+		b = new JButton[3];
+		b[0] = new JButton("언어");
+		b[1] = new JButton("미니게임");
+		b[2] = new JButton("회원가입");
 		
-		JPanel sign_up_in = new JPanel();
-		String temp_ID;
-		String temp_PW;
-		String temp_PW_Check;
-		String temp_name;
-		String temp_Email;	
+		for(int i = 0; i < 3; i++) {
+			b[i].setPreferredSize(new Dimension(120,30));
+			ButtonField.add(b[i]);
+		}
+		this.add(ButtonField,"North");
 		
-		JLabel text = new JLabel("ȸ�� ����");
+		//
 		
-		JLabel[] label = new JLabel[6];
-		label[0] = new JLabel("*ID");
-		label[1] = new JLabel("*PW");
-		label[2] = new JLabel("*PW_Check");
-		label[3] = new JLabel("*name");
-		label[4] = new JLabel("*E-Mail");
+		lButton = new JButton("로그인");
+		this.add(lButton,  "South");
 		
-		text.setBounds(200, 50, 100, 20);
-		label[0].setBounds(100, 120, 100, 20);
-		label[1].setBounds(100, 170, 100, 20);
-		label[2].setBounds(100, 200, 100, 20);
-		label[3].setBounds(100, 270, 100, 20);
-		label[4].setBounds(100, 320, 100, 20);
-		
-		
-		sign_up.add(text);
-		sign_up.add(label[0]);
-		sign_up.add(label[1]);
-		sign_up.add(label[2]);	
-		sign_up.add(label[3]);
-		sign_up.add(label[4]);
-		
-		JTextField tf0 = new JTextField(12);
-		JPasswordField tf1 = new JPasswordField(12); // PW
-		JPasswordField tf2 = new JPasswordField(12); // PW_Check
-		JTextField tf3 = new JTextField(12); // name
-		JTextField tf4 = new JTextField(25); // E-Mail
-		
-		tf0.setBounds(200, 120, 150, 20);
-		tf1.setBounds(200, 170, 150, 20);
-		tf2.setBounds(200, 200, 150, 20);
-		tf3.setBounds(200, 270, 150, 20);
-		tf4.setBounds(200, 320, 150, 20);
-		
-		
-		sign_up.add(tf0);
-		sign_up.add(tf1);
-		sign_up.add(tf2);
-		sign_up.add(tf3);
-		sign_up.add(tf4);
-		////////////////////////////////////////////////////////////
-		
-		JLabel check_ID = new JLabel("ID �ߺ� Ȯ��");
-		JButton b_check_ID = new JButton("Ȯ��");
-		
-		check_ID.setBounds(100,145,200,20);
-		b_check_ID.setBounds(250,145, 70,20);
-		
-		
-		JLabel check = new JLabel("�н����� ��ġ Ȯ��");
-		JButton b_check = new JButton("Ȯ��");
-		
-		b_check.setBounds(250,225, 70,20);
-		check.setBounds(100,225,200,20);
-		
-		sign_up.add(b_check);
-		sign_up.add(check);
-		sign_up.add(b_check_ID);
-		sign_up.add(check_ID);
-		
-		
-		Application.window.add(sign_up, "Center");
-		
-		
+		//////////////////////////////////////////////////////////////////
 		ActionListener eventHandler = new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				String pw = "";
 				// TODO Auto-generated method stub
-				if(e.getSource() == b_check){
-					Check_PW(tf1.getPassword(), tf2.getPassword());
+				if(e.getSource() == lButton){
+					Input_ID = tf1.getText();
+					Input_PW = tf2.getPassword();
+					
+					for(char cha : Input_PW) {
+						Character.toString(cha);
+						pw += (pw.equals("")) ? ""+cha+"" : ""+cha+"";
+					}// 패스워드 해독
+					
+					
+					System.out.printf("ID : %s\n", Input_ID);
+					System.out.printf("PW : %s\n", pw);
+					System.out.printf("PW2 : %s\n", Input_PW);
+					
+					boolean logincheck = false;					
+					for(int i = 0; i <= Application.top; i++) {
+						if(Application.DB[i].getID().equals(Input_ID) &&
+								Application.DB[i].getPW().equals(pw)) {
+							JOptionPane.showMessageDialog(null, "로그인 성공");
+							logincheck = true;
+						}
+					}
+					
+					if(logincheck == false) {
+						JOptionPane.showMessageDialog(null, "없는 계정이거나 잘못 입력함");
+						
+					}
+					
+				}else if(e.getSource() == b[2]) {
+					Application.MyCard.card.show(Application.mainPanel,"Sign_Up");
 				}
 			}
 		};
+		//////////////////////////////////////////////////////////////////
+		
+		lButton.addActionListener(eventHandler);
+		b[2].addActionListener(eventHandler);
 		
 		
 		
 		
 		
-		
-		
-	}
-	
-	
-		
-	public void Check_PW(char[] PW1, char[] PW2) { // �н����� üũ
-		if(PW1.equals(PW2))
-			return;
-		else
-			return;
-	}
-	
-	public void Check_alreadyexist(String ID) {
-		
-		
-		
-	}
-		
-	
+	}//LogIn()		
 	
 	
 	
