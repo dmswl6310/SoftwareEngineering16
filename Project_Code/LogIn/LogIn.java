@@ -42,9 +42,9 @@ public class LogIn extends JPanel{ // 로그인 창
 		// 상단 버튼 패널
 		
 		b = new JButton[3];
-		b[0] = new JButton("언어");
-		b[1] = new JButton("미니게임");
-		b[2] = new JButton("회원가입");
+		b[0] = new JButton(Application.messages.getString("language"));
+		b[1] = new JButton(Application.messages.getString("minigame"));
+		b[2] = new JButton(Application.messages.getString("sign_up"));
 		
 		for(int i = 0; i < 3; i++) {
 			b[i].setPreferredSize(new Dimension(120,30));
@@ -54,7 +54,7 @@ public class LogIn extends JPanel{ // 로그인 창
 		
 		//
 		
-		lButton = new JButton("로그인");
+		lButton = new JButton(Application.messages.getString("log_in"));
 		this.add(lButton,  "South");
 		
 		//////////////////////////////////////////////////////////////////
@@ -63,6 +63,8 @@ public class LogIn extends JPanel{ // 로그인 창
 			public void actionPerformed(ActionEvent e) {
 				String pw = "";
 				// TODO Auto-generated method stub
+				
+					
 				if(e.getSource() == lButton){
 					Input_ID = tf1.getText();
 					Input_PW = tf2.getPassword();
@@ -81,13 +83,13 @@ public class LogIn extends JPanel{ // 로그인 창
 					for(int i = 0; i <= Application.top; i++) {
 						if(Application.DB[i].getID().equals(Input_ID) &&
 								Application.DB[i].getPW().equals(pw)) {
-							JOptionPane.showMessageDialog(null, "로그인 성공");
+							JOptionPane.showMessageDialog(null, Application.messages.getString("sign_up_success"));
 							logincheck = true;
 						}
 					}
 					
 					if(logincheck == false) {
-						JOptionPane.showMessageDialog(null, "없는 계정이거나 잘못 입력함");
+						JOptionPane.showMessageDialog(null, Application.messages.getString("acc_not_exist"));
 						
 					}
 					
@@ -98,6 +100,7 @@ public class LogIn extends JPanel{ // 로그인 창
 				{
 					Application.MyCard.card.show(Application.mainPanel, "Language");
 				}
+					
 			}
 		};
 		//////////////////////////////////////////////////////////////////
