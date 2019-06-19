@@ -12,6 +12,8 @@ import java.io.*;
 
 public class Application {
 	// temporarily DB create
+	public static ResourceBundle messages = ResourceBundle.getBundle("MessagesBundle");
+	
 	public static Member[] DB = new Member[20];
 	public static int top = -1;
 	public static JFrame window = new JFrame("window"); // 창...?
