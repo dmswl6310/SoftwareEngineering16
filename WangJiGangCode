@@ -95,7 +95,7 @@ public class SSR  implements ActionListener {
         	number2=1;
         	
 			if(number2%2 == 1){
-				
+				sj.setIcon(new ImageIcon("images\\y1.PNG"));
 				chy.setIcon(new ImageIcon("images\\y1.PNG"));
 			}
 			else{
@@ -106,7 +106,8 @@ public class SSR  implements ActionListener {
         	number3=1;
         	
 			if(number3%2 == 1){
-				
+				sj.setIcon(new ImageIcon("images\\y1.PNG"));
+				chy.setIcon(new ImageIcon("images\\y1.PNG"));
 				cq.setIcon(new ImageIcon("images\\y1.PNG"));
 			}
 			else{
@@ -118,7 +119,9 @@ public class SSR  implements ActionListener {
         	number4=1;
         	
 			if(number4%2 == 1){
-				
+				sj.setIcon(new ImageIcon("images\\y1.PNG"));
+				chy.setIcon(new ImageIcon("images\\y1.PNG"));
+				cq.setIcon(new ImageIcon("images\\y1.PNG"));
 				enter.setIcon(new ImageIcon("images\\y1.PNG"));
 			}
 			else{
@@ -129,7 +132,10 @@ public class SSR  implements ActionListener {
         	number5=1;
         	
 			if(number5%2 == 1){
-				
+				sj.setIcon(new ImageIcon("images\\y1.PNG"));
+				chy.setIcon(new ImageIcon("images\\y1.PNG"));
+				cq.setIcon(new ImageIcon("images\\y1.PNG"));
+				enter.setIcon(new ImageIcon("images\\y1.PNG"));
 				ew.setIcon(new ImageIcon("images\\y1.PNG"));
 			}
 			else{
