@@ -27,10 +27,12 @@ public class test3 extends JFrame implements ActionListener{
 	JPanel info;
 
 	String content;
-	JPanel show1;
-	JPanel show2;
-	JTextField show;
-	JLabel la;
+	JPanel top;
+	JPanel starbut;
+	JPanel showstar;
+	JLabel starAvg;
+	JTextField showtext;
+	JLabel pic;
 	ImageIcon img;
 	JButton[] s;
 
@@ -54,22 +56,19 @@ public class test3 extends JFrame implements ActionListener{
 		ImageIcon icon = new ImageIcon(location + "y2.png");
 		s=new JButton[5];
 		
-		show2 = new JPanel(new GridLayout(1,5));
-		show1 = new JPanel(new GridLayout(1,2));
-
+		showstar= new JPanel(new BorderLayout());	
+		starbut = new JPanel(new GridLayout(1,5));
+		top = new JPanel(new GridLayout(1,2));
 		for(int i=0;i<5;i++) {
 		s[i] = new JButton("", icon);
 		s[i].setForeground(Color.white);
-		show2.add(s[i]);
+		starbut.add(s[i]);
 		s[i].addActionListener(this);
 	    s[i].setFocusPainted(false);
 	    s[i].setBorderPainted(false);
 	    s[i].setContentAreaFilled(false);
 		}
-
-		// title패널에는 라벨만 들어감
-		Label t = new Label(this.name);
-		title.add(t);
+		
 
 		try {
 			Scanner rscan = new Scanner(resinfo);			
@@ -83,15 +82,23 @@ public class test3 extends JFrame implements ActionListener{
 		} catch (FileNotFoundException e) {
 			content += "파일이 없습니다";
 		}
+		
+		starAvg = new JLabel("평점"+starAverage+"      평가인원"+starNum,JLabel.CENTER); 
+		showstar.add(BorderLayout.CENTER,starbut);
+		showstar.add(BorderLayout.SOUTH,starAvg);
+		//showtext.add(starla);
+		// title패널에는 라벨만 들어감
+		Label t = new Label(this.name);
+		title.add(t);
 
-		show = new JTextField(content);
-		// show1패널에는 show 패널(텍스트필드)와 show2패널(별점)이 들어감
-		show1.add(show);
-		show1.add(show2);
-		la = new JLabel(img, SwingConstants.CENTER);
-		// info패널에는 show1(텍스트와 별점)과 그림 패널이 들어감
-		info.add(BorderLayout.CENTER, show1);
-		info.add(BorderLayout.SOUTH, la);
+		showtext = new JTextField(content);
+		// top패널에는 showtext 패널(텍스트필드)와 showstar패널(별점패널)이 들어감
+		top.add(showtext);
+		top.add(showstar);
+		pic = new JLabel(img, SwingConstants.CENTER);
+		// info패널에는 top(텍스트와 별점)과 그림 패널이 들어감
+		info.add(BorderLayout.CENTER, top);
+		info.add(BorderLayout.SOUTH, pic);
 
 		add(BorderLayout.NORTH, title);
 		add(BorderLayout.CENTER, info);
@@ -117,7 +124,8 @@ public class test3 extends JFrame implements ActionListener{
         s[i].setIcon(new ImageIcon(location+"y2.PNG"));
         }
     	}
-        starAverage=((starAverage*starNum)+star)/(++starNum);
+        starAverage=Math.floor((((starAverage*starNum)+star)/++starNum)*10)/10;
+        starAvg.setText("평점"+starAverage+"      평가인원"+starNum);
         System.out.println("평균"+starAverage);
         System.out.println("횟수"+starNum);
         done=true;
