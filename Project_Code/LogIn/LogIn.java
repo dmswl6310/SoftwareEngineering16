@@ -94,12 +94,17 @@ public class LogIn extends JPanel{ // 로그인 창
 				}else if(e.getSource() == b[2]) {
 					Application.MyCard.card.show(Application.mainPanel,"Sign_Up");
 				}
+				else if(e.getSource()==b[0])
+				{
+					Application.MyCard.card.show(Application.mainPanel, "Language");
+				}
 			}
 		};
 		//////////////////////////////////////////////////////////////////
 		
 		lButton.addActionListener(eventHandler);
 		b[2].addActionListener(eventHandler);
+		b[0].addActionListener(eventHandler);
 		
 		
 		
