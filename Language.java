@@ -28,7 +28,8 @@ public class Language extends JPanel
 		Back.setBounds(200, 250, 100, 20);
 		Back.addActionListener(listen);
 		langPanel.add(Back,"Center");
-		LangCBox = new JComboBox();				
+		LangCBox = new JComboBox();
+		LangCBox.addItem(Locale.getDefault());
 		LangCBox.addItem(new Locale("ko","KR"));
 		LangCBox.addItem(new Locale("en","US"));
 		LangCBox.addItemListener(itemEvent -> SetLanguage());
@@ -73,4 +74,5 @@ public class Language extends JPanel
 	}
 
 }
+
 
