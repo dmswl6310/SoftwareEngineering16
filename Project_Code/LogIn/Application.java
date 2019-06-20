@@ -1,5 +1,5 @@
 package LogIn;
- mport javax.swing.JFrame;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -17,13 +17,10 @@ public class Application {
 	// temporarily DB create
 	public static Member[] DB = new Member[20];
 	public static int top = -1;
+	public static boolean LangSelected = false;
 	public static JFrame window = new JFrame("window"); // 창...?
 	public static JPanel mainPanel = new JPanel();
-	
-	
-	public  static Locale currentLocale = Language.getDefaultLocale();
-	public  static ResourceBundle messages = ResourceBundle.getBundle("MessagesBundle",currentLocale);
-	
+
 	public static void DB_init() {
 		///////// 테스트용 DB
 		
@@ -101,22 +98,26 @@ public class Application {
 	
 	static class MyCard extends JFrame{
 		static CardLayout card = new CardLayout(); // Card Layout Create
-		LogIn LI = new LogIn();
-		Sign_Up  SU = new Sign_Up();
+		
+		//LogIn LI = new LogIn();
+		//Sign_Up SU = new Sign_Up();
 		Language LG = new Language();
 		
 		
+		
 		MyCard() {
-			mainPanel.setLayout(card);	
-			mainPanel.add("LogIn", LI);
-			mainPanel.add("Sign_Up", SU);
+			mainPanel.setLayout(card);
 			mainPanel.add("Language", LG);
+			//mainPanel.add("LogIn", LI);
+			//mainPanel.add("Sign_Up", SU);
 						
 		}
+		
 	}
 	
 	
 	public static void main(String[] args) {
+		
 		
 		int window_W = 480;
 		int window_H = 640;
@@ -134,6 +135,7 @@ public class Application {
 		MyCard MC = new MyCard();
 		MC.card.show(mainPanel, "Language");
 		Application.window.setVisible(true);
+		
 		
 	}
 	
