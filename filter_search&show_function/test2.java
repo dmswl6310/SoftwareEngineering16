@@ -1,5 +1,6 @@
 import java.awt.BorderLayout;
 import java.awt.Component;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Label;
 import java.awt.event.ActionEvent;
@@ -27,7 +28,7 @@ public class test2 extends JFrame {
 	JPanel title;
 	JPanel list;
 	List<Restaurant> res;
-	String ttitle[] = { "ì´ë¦„", "ë¶„ë¥˜", "ìœ„ì¹˜", "ì—¬ëŠ”ì‹œê°„", "ë‹«ëŠ”ì‹œê°„", "ìµœì €ê°€ê²©" };
+	String ttitle[] = { "ÀÌ¸§", "ºĞ·ù", "À§Ä¡", "¿©´Â½Ã°£", "´İ´Â½Ã°£", "ÃÖÀú°¡°İ" };
 	JTable table;
 	String data[][];
 
@@ -37,7 +38,7 @@ public class test2 extends JFrame {
 		res = new ArrayList<Restaurant>();
 
 		try {
-			File file = new File("C:\\Users\\í™©ì€ì§€\\Desktop\\Softengineering_Test1\\src\\ëª©ë¡.txt");
+			File file = new File("C:\\Users\\È²ÀºÁö\\Desktop\\Softengineering_Test1\\src\\¸ñ·Ï.txt");
 			Scanner fscan = new Scanner(file);
 
 			while (fscan.hasNextLine()) {
@@ -60,9 +61,9 @@ public class test2 extends JFrame {
 
 			}
 		} catch (FileNotFoundException e) {
-			System.out.println(Language.getString("fileCantOpen"));//íŒŒì¼ì„ ì—´ì§€ ëª»í•©ë‹ˆë‹¤");
+			System.out.println("ÆÄÀÏÀ» ¿­Áö ¸øÇÕ´Ï´Ù");
 		} catch (NumberFormatException e) {
-			System.out.println(Language.getString("wrongInput"));//"ì…ë ¥í˜•ì‹ ë§ì§€ì•ŠìŒ");
+			System.out.println("ÀÔ·ÂÇü½Ä ¸ÂÁö¾ÊÀ½");
 		}
 
 		for (int i = 0; i < res.size(); i++) {
@@ -75,7 +76,7 @@ public class test2 extends JFrame {
 
 	public test2(Restaurant x) {
 
-		super(Language.getString("resList"));//"ì‹ë‹¹ ëª©ë¡ í™”ë©´");
+		super("½Ä´ç ¸ñ·Ï È­¸é");
 		this.filescan(x);
 		data = new String[res.size()][10];
 		for (int i = 0; i < res.size(); i++) {
@@ -87,21 +88,23 @@ public class test2 extends JFrame {
 			data[i][5] = String.valueOf(res.get(i).price);
 		}
 
-		// ì „ì²´ ë ˆì´ì•„ì›ƒ-ë³´ë” (title: í™”ë©´ì´ë¦„, center: ì‹ë‹¹ëª©ë¡);
+		// ÀüÃ¼ ·¹ÀÌ¾Æ¿ô-º¸´õ (title: È­¸éÀÌ¸§, center: ½Ä´ç¸ñ·Ï);
 		setLayout(new BorderLayout());
 		title = new JPanel(new BorderLayout());
 		list = new JPanel(new BorderLayout());
 		
-		//titleì—ëŠ” ë¼ë²¨í•œê°œë§Œ
-		Label t = new Label("ì‹ë‹¹ ê²€ìƒ‰ ê²°ê³¼");
+		//title¿¡´Â ¶óº§ÇÑ°³¸¸
+		Label t = new Label("½Ä´ç °Ë»ö °á°ú",Label.CENTER);
+		t.setFont(new Font("Times New Roman",20,20));
 		title.add(t);
 		
-		//listì—ëŠ” ìŠ¤í¬ë¡¤ ë‹¬ë¦° í…Œì´ë¸”ë§Œ
+		//list¿¡´Â ½ºÅ©·Ñ ´Ş¸° Å×ÀÌºí¸¸
 		table = new JTable(data, ttitle);
+		table.setRowHeight(70);
 		JScrollPane sp = new JScrollPane(table);
 		list.add(sp, BorderLayout.CENTER);
 
-		// ìµœìƒìœ„ ë ˆì´ì•„ì›ƒì— ì¶”ê°€
+		// ÃÖ»óÀ§ ·¹ÀÌ¾Æ¿ô¿¡ Ãß°¡
 		add(BorderLayout.CENTER, list);
 		add(BorderLayout.NORTH, title);
 

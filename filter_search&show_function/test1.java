@@ -2,6 +2,7 @@ import java.awt.BorderLayout;
 import java.awt.Button;
 import java.awt.Container;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Label;
 import java.awt.Panel;
@@ -16,35 +17,49 @@ import java.util.Scanner;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
-//ìë°” ì¤„ë§ì¶¤ : ctrl + shift + F
+//ÀÚ¹Ù ÁÙ¸ÂÃã : ctrl + shift + F
+import javax.swing.SwingConstants;
 
-public class test1 extends JPanel {
-
+public class test1 extends JFrame {
+	
+	JPanel top;
 	JPanel filter;
 	JPanel find;
+	Label title;
 	JComboBox<String> com1, com2;
 	JTextField name, time, price;
-	String type[] = { "---", "í•œì‹", "ì¼ì‹", "ì–‘ì‹", "ì¤‘ì‹", "ê¸°íƒ€" };
-	String location[] = { "---", "ì •ë¬¸(ìª½ë¬¸)", "ë¶ë¬¸", "ë™ë¬¸", "ì„œë¬¸" };
+	String type[] = { "---", "ÇÑ½Ä", "ÀÏ½Ä", "¾ç½Ä", "Áß½Ä", "±âÅ¸" };
+	String location[] = { "---", "Á¤¹®(ÂÊ¹®)", "ºÏ¹®", "µ¿¹®", "¼­¹®" };
 
 	public test1() {
 
-		// ì „ì²´ ë ˆì´ì•„ì›ƒ-ë³´ë” (center: filter(ìŠ¤í¬ë¡¤ê³¼ í…ìŠ¤íŠ¸ ë°•ìŠ¤ë“¤), south: ì°¾ê¸°ë²„íŠ¼);
-		
+		// ÀüÃ¼ ·¹ÀÌ¾Æ¿ô-º¸´õ (center: filter(½ºÅ©·Ñ°ú ÅØ½ºÆ® ¹Ú½ºµé), south: Ã£±â¹öÆ°);
+		//super("½Ä´ç °Ë»ö È­¸é");
 		setLayout(new BorderLayout());
+		
 		filter = new JPanel(new GridLayout(5, 2));
 		find = new JPanel(new BorderLayout());
-
-		// filter íŒ¨ë„ì—ëŠ” ë¼ë²¨ë“¤ê³¼ í…ìŠ¤íŠ¸,ìŠ¤í¬ë¡¤ë°•ìŠ¤ ë“¤ì–´ê°
-		Label t1 = new Label(Language.getString("resName1"));//"ì‹ë‹¹ì´ë¦„");
-		Label t2 = new Label(Language.getString("res_type"));//"ë¶„ë¥˜");
-		Label t3 = new Label(Language.getString("res_location"));//"ìœ„ì¹˜");
-		Label t4 = new Label(Language.getString("visit_time"));//"ë°©ë¬¸ì‹œê°");
-		Label t5 = new Label(Language.getString("price"));//"ê°€ê²©");
-
+		top=new JPanel();
+		// filter ÆĞ³Î¿¡´Â ¶óº§µé°ú ÅØ½ºÆ®,½ºÅ©·Ñ¹Ú½º µé¾î°¨
+		Label t1 = new Label("½Ä´çÀÌ¸§",Label.CENTER);
+		t1.setFont(new Font("Times New Roman", 20,20));
+		Label t2 = new Label("ºĞ·ù",Label.CENTER);
+		t2.setFont(new Font("Times New Roman", 20,20));
+		Label t3 = new Label("À§Ä¡",Label.CENTER);
+		t3.setFont(new Font("Times New Roman", 20,20));
+		Label t4 = new Label("¹æ¹®½Ã°¢",Label.CENTER);
+		t4.setFont(new Font("Times New Roman", 20,20));
+		Label t5 = new Label("°¡°İ",Label.CENTER);
+		t5.setFont(new Font("Times New Roman", 20,20));
+		
+		title=new Label("½Ä´ç °Ë»ö È­¸é");
+		title.setFont(new Font("Times New Roman",20,20));
+		//title.setBorder(EtchedBorder);
+		top.add(title);
 		com1 = new JComboBox<String>(type);
 		JScrollPane s1 = new JScrollPane(com1);
 
@@ -66,16 +81,15 @@ public class test1 extends JPanel {
 		filter.add(t5);
 		filter.add(price);
 
-		// findíŒ¨ë„ì—ëŠ” ì°¾ê¸°ë²„íŠ¼ë§Œ ë“¤ì–´ê°
-		JButton btn = new JButton();
-		btn.setText(Language.getString("search"));//
+		// findÆĞ³Î¿¡´Â Ã£±â¹öÆ°¸¸ µé¾î°¨
+		JButton btn = new JButton("Ã£  ±â");
 		find.add(BorderLayout.CENTER, btn);
 
-		// ìµœìƒìœ„ ë ˆì´ì•„ì›ƒì— ì¶”ê°€
+		// ÃÖ»óÀ§ ·¹ÀÌ¾Æ¿ô¿¡ Ãß°¡
 		add(BorderLayout.CENTER, filter);
 		add(BorderLayout.SOUTH, find);
-
-		// ì°¾ê¸° ë²„íŠ¼ì— filter íŒ¨ë„ì˜ ë¼ë²¨ë“¤ ì…ë ¥ê°’ ë°›ê¸°
+		add(BorderLayout.NORTH,top);
+		// Ã£±â ¹öÆ°¿¡ filter ÆĞ³ÎÀÇ ¶óº§µé ÀÔ·Â°ª ¹Ş±â
 		btn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Restaurant r1 = new Restaurant();
@@ -102,7 +116,7 @@ public class test1 extends JPanel {
 				}
 				
 				test2 obj2=new test2(r1);
-				obj2.setDefaultCloseOperation(EXIT_ON_CLOSE);
+				//obj2.setDefaultCloseOperation(EXIT_ON_CLOSE);
 			}
 
 		});
@@ -134,12 +148,12 @@ public class test1 extends JPanel {
 
 	public static void fileScan() {
 
-		// Restaurantí˜• listì¸ resì—ë‹¤ê°€ íŒŒì¼ë¡œ ì½ì€ Restaurantí˜•ë“¤ ìë£Œë¥¼ ë„£ëŠ”ë‹¤
+		// RestaurantÇü listÀÎ res¿¡´Ù°¡ ÆÄÀÏ·Î ÀĞÀº RestaurantÇüµé ÀÚ·á¸¦ ³Ö´Â´Ù
 		Restaurant x2 = new Restaurant();
 		Scanner iscan = new Scanner(System.in);
 		List<Restaurant> res = new ArrayList<Restaurant>();
 		try {
-			File file = new File("C:\\Users\\í™©ì€ì§€\\Desktop\\Softengineering_Test1\\src\\ëª©ë¡.txt");
+			File file = new File("C:\\Users\\È²ÀºÁö\\Desktop\\Softengineering_Test1\\src\\¸ñ·Ï.txt");
 			Scanner fscan = new Scanner(file);
 
 			while (fscan.hasNextLine()) {
@@ -162,32 +176,32 @@ public class test1 extends JPanel {
 
 			}
 		} catch (FileNotFoundException e) {
-			System.out.println(Language.getString("fileCantopen"));//"íŒŒì¼ì„ ì—´ì§€ ëª»í•©ë‹ˆë‹¤");
+			System.out.println("ÆÄÀÏÀ» ¿­Áö ¸øÇÕ´Ï´Ù");
 		} catch (NumberFormatException e) {
-			System.out.println(Language.getString("wrongInput"));//"ì…ë ¥í˜•ì‹ ë§ì§€ì•ŠìŒ");
+			System.out.println("ÀÔ·ÂÇü½Ä ¸ÂÁö¾ÊÀ½");
 		}
 
-		// ì›í•˜ëŠ” ì •ë³´ë¥¼ ì…ë ¥ë°›ëŠ”ë‹¤.
-		System.out.println(Language.getString("enterResInfo"));//">> Restaurantí˜• ì •ë³´ë¥¼ ì…ë ¥í•˜ì„¸ìš”");
+		// ¿øÇÏ´Â Á¤º¸¸¦ ÀÔ·Â¹Ş´Â´Ù.
+		System.out.println(">> RestaurantÇü Á¤º¸¸¦ ÀÔ·ÂÇÏ¼¼¿ä");
 
-		System.out.println(Language.getString("resName1"));//"ì‹ë‹¹ ì´ë¦„ì€?");
+		System.out.println("½Ä´ç ÀÌ¸§Àº?");
 		x2.name = iscan.next();
-		System.out.println(Language.getString("resType1"));//"ì›í•˜ëŠ” ë¶„ë¥˜ëŠ”? (1:í•œì‹, 2:ì¼ì‹, 3:ì–‘ì‹ , 4:ì¤‘ì‹, 5:ê¸°íƒ€)");
+		System.out.println("¿øÇÏ´Â ºĞ·ù´Â? (1:ÇÑ½Ä, 2:ÀÏ½Ä, 3:¾ç½Ä , 4:Áß½Ä, 5:±âÅ¸)");
 		x2.type = iscan.nextInt();
-		System.out.println(Language.getString("resLoc"));//ì›í•˜ëŠ” ìœ„ì¹˜ëŠ”? (1:ì •ë¬¸(ìª½ë¬¸), 2:ë¶ë¬¸, 3:ë™ë¬¸, 4:ì„œë¬¸)");
+		System.out.println("¿øÇÏ´Â À§Ä¡´Â? (1:Á¤¹®(ÂÊ¹®), 2:ºÏ¹®, 3:µ¿¹®, 4:¼­¹®)");
 		x2.location = iscan.nextInt();
-		System.out.println(Language.getString("eatTime"));//"ì›í•˜ëŠ” ì‹œê°„ì€?");
+		System.out.println("¿øÇÏ´Â ½Ã°£Àº?");
 		x2.start_time = iscan.nextInt();
 		x2.finish_time = x2.start_time;
-		System.out.println(Language.getString("price"));//"ì›í•˜ëŠ” ê°€ê²©ì€?");
+		System.out.println("¿øÇÏ´Â °¡°İÀº?");
 		x2.price = iscan.nextInt();
 
-		// ì…ë ¥ì •ë³´ì™€ í•„í„°ë§ ê±°ì³ë‚˜ì˜¨ ê²°ê³¼ í‘œì‹œ
-		System.out.println("\nì…ë ¥í•œ ì •ë³´ëŠ”..");
+		// ÀÔ·ÂÁ¤º¸¿Í ÇÊÅÍ¸µ °ÅÃÄ³ª¿Â °á°ú Ç¥½Ã
+		System.out.println("\nÀÔ·ÂÇÑ Á¤º¸´Â..");
 		System.out.println(">> name:" + x2.name + " type:" + x2.type + " location:" + x2.location + " time:"
-				+ x2.start_time + " price:" + x2.price + " ì…ë‹ˆë‹¤\n");
+				+ x2.start_time + " price:" + x2.price + " ÀÔ´Ï´Ù\n");
 
-		System.out.println(Language.getString("relevantResInfo"));//"í•´ë‹¹ë˜ëŠ” ì‹ë‹¹ì •ë³´ëŠ”..");
+		System.out.println("ÇØ´çµÇ´Â ½Ä´çÁ¤º¸´Â..");
 		for (int i = 0; i < res.size(); i++) {
 			if (res.get(i).searchInfo(x2) == false) {
 				res.remove(i--);
@@ -198,10 +212,10 @@ public class test1 extends JPanel {
 			res.get(i).showShort();
 		}
 
-		// ë‚˜ì˜¨ ê²°ê³¼ì¤‘ ë” ìì„¸í•œ ì •ë³´ë¥¼ ì›í•  ì‹œ ë³´ì—¬ì¤Œ
-		System.out.println("\nëª‡ë²ˆ ì‹ë‹¹ ì¡°íšŒ?(0ë¶€í„°~)");
+		// ³ª¿Â °á°úÁß ´õ ÀÚ¼¼ÇÑ Á¤º¸¸¦ ¿øÇÒ ½Ã º¸¿©ÁÜ
+		System.out.println("\n¸î¹ø ½Ä´ç Á¶È¸?(0ºÎÅÍ~)");
 		int num = iscan.nextInt();
-		System.out.println("\n******** " + num + "ë²ˆ ì‹ë‹¹ì˜ ì •ë³´ëŠ”... ***************");
+		System.out.println("\n******** " + num + "¹ø ½Ä´çÀÇ Á¤º¸´Â... ***************");
 		res.get(num).showInfo();
 		System.out.println("****************************************");
 	}
