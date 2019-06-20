@@ -27,7 +27,7 @@ public class test2 extends JFrame {
 	JPanel title;
 	JPanel list;
 	List<Restaurant> res;
-	String ttitle[] = { "ÀÌ¸§", "ºĞ·ù", "À§Ä¡", "¿©´Â½Ã°£", "´İ´Â½Ã°£", "ÃÖÀú°¡°İ" };
+	String ttitle[] = { "ì´ë¦„", "ë¶„ë¥˜", "ìœ„ì¹˜", "ì—¬ëŠ”ì‹œê°„", "ë‹«ëŠ”ì‹œê°„", "ìµœì €ê°€ê²©" };
 	JTable table;
 	String data[][];
 
@@ -37,7 +37,7 @@ public class test2 extends JFrame {
 		res = new ArrayList<Restaurant>();
 
 		try {
-			File file = new File("C:\\Users\\È²ÀºÁö\\Desktop\\Softengineering_Test1\\src\\¸ñ·Ï.txt");
+			File file = new File("C:\\Users\\í™©ì€ì§€\\Desktop\\Softengineering_Test1\\src\\ëª©ë¡.txt");
 			Scanner fscan = new Scanner(file);
 
 			while (fscan.hasNextLine()) {
@@ -60,9 +60,9 @@ public class test2 extends JFrame {
 
 			}
 		} catch (FileNotFoundException e) {
-			System.out.println("ÆÄÀÏÀ» ¿­Áö ¸øÇÕ´Ï´Ù");
+			System.out.println(Language.getString("fileCantOpen"));//íŒŒì¼ì„ ì—´ì§€ ëª»í•©ë‹ˆë‹¤");
 		} catch (NumberFormatException e) {
-			System.out.println("ÀÔ·ÂÇü½Ä ¸ÂÁö¾ÊÀ½");
+			System.out.println(Language.getString("wrongInput"));//"ì…ë ¥í˜•ì‹ ë§ì§€ì•ŠìŒ");
 		}
 
 		for (int i = 0; i < res.size(); i++) {
@@ -75,7 +75,7 @@ public class test2 extends JFrame {
 
 	public test2(Restaurant x) {
 
-		super("½Ä´ç ¸ñ·Ï È­¸é");
+		super(Language.getString("resList"));//"ì‹ë‹¹ ëª©ë¡ í™”ë©´");
 		this.filescan(x);
 		data = new String[res.size()][10];
 		for (int i = 0; i < res.size(); i++) {
@@ -87,21 +87,21 @@ public class test2 extends JFrame {
 			data[i][5] = String.valueOf(res.get(i).price);
 		}
 
-		// ÀüÃ¼ ·¹ÀÌ¾Æ¿ô-º¸´õ (title: È­¸éÀÌ¸§, center: ½Ä´ç¸ñ·Ï);
+		// ì „ì²´ ë ˆì´ì•„ì›ƒ-ë³´ë” (title: í™”ë©´ì´ë¦„, center: ì‹ë‹¹ëª©ë¡);
 		setLayout(new BorderLayout());
 		title = new JPanel(new BorderLayout());
 		list = new JPanel(new BorderLayout());
 		
-		//title¿¡´Â ¶óº§ÇÑ°³¸¸
-		Label t = new Label("½Ä´ç °Ë»ö °á°ú");
+		//titleì—ëŠ” ë¼ë²¨í•œê°œë§Œ
+		Label t = new Label("ì‹ë‹¹ ê²€ìƒ‰ ê²°ê³¼");
 		title.add(t);
 		
-		//list¿¡´Â ½ºÅ©·Ñ ´Ş¸° Å×ÀÌºí¸¸
+		//listì—ëŠ” ìŠ¤í¬ë¡¤ ë‹¬ë¦° í…Œì´ë¸”ë§Œ
 		table = new JTable(data, ttitle);
 		JScrollPane sp = new JScrollPane(table);
 		list.add(sp, BorderLayout.CENTER);
 
-		// ÃÖ»óÀ§ ·¹ÀÌ¾Æ¿ô¿¡ Ãß°¡
+		// ìµœìƒìœ„ ë ˆì´ì•„ì›ƒì— ì¶”ê°€
 		add(BorderLayout.CENTER, list);
 		add(BorderLayout.NORTH, title);
 
