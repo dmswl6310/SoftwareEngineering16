@@ -40,15 +40,15 @@ public class test3 extends JFrame implements ActionListener{
 	
 	public test3(Restaurant r) {
 
-		super("»ó¼¼ °Ë»ö È­¸é");
-		location = "C:\\Users\\È²ÀºÁö\\Desktop\\Softengineering_Test1\\SE_Project\\src\\";
+		super(Language.getString("searchWindow"));//"ìƒì„¸ ê²€ìƒ‰ í™”ë©´");
+		location = "C:\\Users\\í™©ì€ì§€\\Desktop\\Softengineering_Test1\\SE_Project\\src\\";
 		done=false;
 		this.name = r.name;
 		content = "";
 		File resinfo = new File(location + this.name + ".txt");
 		img = new ImageIcon(location + this.name + ".jpg");
 
-		// ÀüÃ¼ ±¸¼º : title°ú info ÆĞ³Î µÎ°³
+		// ì „ì²´ êµ¬ì„± : titleê³¼ info íŒ¨ë„ ë‘ê°œ
 		setLayout(new BorderLayout());
 		title = new JPanel(new BorderLayout());
 		info = new JPanel(new BorderLayout());
@@ -80,23 +80,23 @@ public class test3 extends JFrame implements ActionListener{
 				content += (rscan.nextLine());
 			}
 		} catch (FileNotFoundException e) {
-			content += "ÆÄÀÏÀÌ ¾ø½À´Ï´Ù";
+			content += "íŒŒì¼ì´ ì—†ìŠµë‹ˆë‹¤";
 		}
 		
-		starAvg = new JLabel("ÆòÁ¡"+starAverage+"      Æò°¡ÀÎ¿ø"+starNum,JLabel.CENTER); 
+		starAvg = new JLabel(Language.getString("avg")+starAverage+"  "+Language.getString("reviews")+starNum,JLabel.CENTER); 
 		showstar.add(BorderLayout.CENTER,starbut);
 		showstar.add(BorderLayout.SOUTH,starAvg);
 		//showtext.add(starla);
-		// titleÆĞ³Î¿¡´Â ¶óº§¸¸ µé¾î°¨
+		// titleíŒ¨ë„ì—ëŠ” ë¼ë²¨ë§Œ ë“¤ì–´ê°
 		Label t = new Label(this.name);
 		title.add(t);
 
 		showtext = new JTextField(content);
-		// topÆĞ³Î¿¡´Â showtext ÆĞ³Î(ÅØ½ºÆ®ÇÊµå)¿Í showstarÆĞ³Î(º°Á¡ÆĞ³Î)ÀÌ µé¾î°¨
+		// topíŒ¨ë„ì—ëŠ” showtext íŒ¨ë„(í…ìŠ¤íŠ¸í•„ë“œ)ì™€ showstaríŒ¨ë„(ë³„ì íŒ¨ë„)ì´ ë“¤ì–´ê°
 		top.add(showtext);
 		top.add(showstar);
 		pic = new JLabel(img, SwingConstants.CENTER);
-		// infoÆĞ³Î¿¡´Â top(ÅØ½ºÆ®¿Í º°Á¡)°ú ±×¸² ÆĞ³ÎÀÌ µé¾î°¨
+		// infoíŒ¨ë„ì—ëŠ” top(í…ìŠ¤íŠ¸ì™€ ë³„ì )ê³¼ ê·¸ë¦¼ íŒ¨ë„ì´ ë“¤ì–´ê°
 		info.add(BorderLayout.CENTER, top);
 		info.add(BorderLayout.SOUTH, pic);
 
@@ -125,9 +125,9 @@ public class test3 extends JFrame implements ActionListener{
         }
     	}
         starAverage=Math.floor((((starAverage*starNum)+star)/++starNum)*10)/10;
-        starAvg.setText("ÆòÁ¡"+starAverage+"      Æò°¡ÀÎ¿ø"+starNum);
-        System.out.println("Æò±Õ"+starAverage);
-        System.out.println("È½¼ö"+starNum);
+        starAvg.setText(Language.getString("avg")+starAverage+Language.getString("reviews")+starNum);
+        System.out.println(Language.getString("avg")+starAverage);
+        System.out.println("íšŸìˆ˜"+starNum);
         done=true;
 		}
 }
