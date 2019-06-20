@@ -1,5 +1,3 @@
-package LogIn;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -42,9 +40,9 @@ public class LogIn extends JPanel{ // 로그인 창
 		// 상단 버튼 패널
 		
 		b = new JButton[3];
-		b[0] = new JButton(Application.messages.getString("language"));
-		b[1] = new JButton(Application.messages.getString("minigame"));
-		b[2] = new JButton(Application.messages.getString("sign_up"));
+		b[0] = new JButton(Language.getString("language"));
+		b[1] = new JButton(Language.getString("minigame"));
+		b[2] = new JButton(Language.getString("sign_up"));
 		
 		for(int i = 0; i < 3; i++) {
 			b[i].setPreferredSize(new Dimension(120,30));
@@ -54,7 +52,7 @@ public class LogIn extends JPanel{ // 로그인 창
 		
 		//
 		
-		lButton = new JButton(Application.messages.getString("log_in"));
+		lButton = new JButton(Language.getString("log_in"));
 		this.add(lButton,  "South");
 		
 		//////////////////////////////////////////////////////////////////
@@ -83,13 +81,16 @@ public class LogIn extends JPanel{ // 로그인 창
 					for(int i = 0; i <= Application.top; i++) {
 						if(Application.DB[i].getID().equals(Input_ID) &&
 								Application.DB[i].getPW().equals(pw)) {
-							JOptionPane.showMessageDialog(null, Application.messages.getString("sign_up_success"));
+							JOptionPane.showMessageDialog(null, Language.getString("sign_up_success"));
 							logincheck = true;
+							test1 T = new test1();
+							Application.mainPanel.add("test1",T);
+							Application.MyCard.card.show(Application.mainPanel,"test1");
 						}
 					}
 					
 					if(logincheck == false) {
-						JOptionPane.showMessageDialog(null, Application.messages.getString("acc_not_exist"));
+						JOptionPane.showMessageDialog(null, Language.getString("acc_not_exist"));
 						
 					}
 					
